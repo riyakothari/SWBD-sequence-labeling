@@ -1,0 +1,40 @@
+Assignment 2 Report
+
+Name: Riya Kothari
+
+1. Describe how you evaluated your baseline and advanced features:
+
+Replace this text with a description of how you used the labeled data
+to train and evaluate different models (e.g., moving ~25% data into a
+separate development directory).
+
+I split the labeled data into train and test, with test containing 25% of the labeled data, and created another directory for the test data.
+Using the files in train set, I trained the model and saved it into a crfsuite file type.
+This crfsuite file was used on the test files, whose labeled act_tag columns were treated as y_true and the predictions were in turn compared to them to figure out the accuracy score.
+
+2. Accuracy of baseline features during your evaluation:
+
+The accuracy of my baseline features during evaluation came out to be 71.87%
+
+3. Describe your advanced feature set:
+
+For the advanced features, I used the following:
+i) All baseline features, plus treated 'speaker_change', 'empty' and 'first_utterance' features from baseline to be nonbinary.
+So, for all utterances where speaker did not change I added 'Not_Speaker_change';
+for all non-empty utterances I added 'NOT_EMPTY' and for all non-first utterances I added 'Not_First_utterance'.
+ii) In a given dialog, for all utterances, I added the features from the utterance before the given utterance to the advanced features. (i.e. added features of i-1 to i) ("Prev_"+())
+iii) In a given dialog, for all utterances, I added the features from the utterance immediately after the given utterance to the advanced features. (i.e. added features of i+1 to i) ("Next_"+())
+iv) In a given dialog, for all utterances, I added the features from the utterance prior to the one immediately before the given utterance, to the advanced features. (i.e. added features of i-2 to i) ("Two_Prev_"+())
+
+4. If you tried and rejected alternate advanced feature sets, please describe them:
+
+Apart from the above mentioned advanced features, I also tried various combinations of the used features.
+I also tried adding features of (i-3)rd and (i+2)nd utterance to the current ith utterance.
+Moreover I wrote a function to see where the most misclassifications lied (between which classes, it turned out to be 'sv' and 'sd'),
+and tried adding a feature of 'Tag_sv' to utterances which contained the words in the list ['i think', 'i believe', 'it seems', 'it\'s my opinion that', 'i mean', 'suppose', 'of course'].
+Also tried using token.lower and pos.lower.
+Additionally, I also tried adding features like 'is_lower' for words of utterances.
+
+5. Accuracy of advanced features was:
+
+The accuracy of my advanced features during evaluation came out to be 73.01%
